@@ -7,16 +7,34 @@
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 if(!CollectionUtils.isEmpty(fevFinanceData.getCurrencyConversion())){
 }
-
+------------------------------------------------------------------------------------------------------------
 if(CollectionUtils.isNotEmpty(documentEvent.getDocumentDetails().getAccountDetails())){
 }
-
+-------------------------------------------------------------------------------------------------
 if(charges!=null && charges.getAdhocCharges()!=null && !charges.getAdhocCharges().isEmpty()){
           getAdhocCharges is a list
 }
-
+----------------------------------------------------------------------------------------------------
 if(MapUtils.isNotEmpty(vcaAccountDetails)){
     vcaAccountDetails is a map
 }
+------------------------------------------------------------------------------------------------
+ObjectMapper om =new ObjectMapper();
+om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+om.registerModule(new JavaTimeModule());
+TxAdapotorNotificationPayload  res=om.readValue(message,TxAdapotorNotificationPayload.class);
+messsage is a string
+--------------------------------------------------------------------------------------------------------------
+POSTGRES
 
+@TypeDef(name="jsonb", typeClass=JsonBinaryType.class)
+public class TXSystemChaneelMessage implements Serializable{
+          @Type(type="jsonb")
+          @Column(name="payload", columnDefinition="jsonb")
+          private Object payload;
+}
+----------------------------------------------------------------------------------------------------------------
+createEvenr.setTimeStamp(LocalDateTime.now());
+
+---------------------------------------------------------------------------------------
 
