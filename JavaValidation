@@ -43,7 +43,25 @@ private TXJournalListCreatedEvent  loadcreatedEvent() throws JsonPareseException
 }
 ---------------------------------------------------------------------------------------------------------------------------
 
-
+@Slf4j
+log.error("Error accessing L1 transactionDetails for transaction..{}..error..{}",transactionStepReference,e);
+log.info("Unable to retrieve batch/transacton details for request id..{}..and transaction..{}",externalRequestId,transactionStepReference);
+log.info("Document fetch for transaction..{} batch id is..{} documentPageNumber...{} documentPageSIze..{} and url..{}",step,id,1,documentPageSize,url)
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+private List<TXS2BHsCodes> constructHsCodesDetails(TXOdsDocumendetails  documentdetails){
+          TXS2BHsCodes hscode=new TXS2BHsCodes();
+          List<TXS2BHsCodes> hs= new ArrayList<>();
+          if(Objects.nonNull(documentdetails.getGoodsDetails())){
+                    documentdetails.getGoodsDetails().forEach(x->{
+                              if(x.getGoodsDetails().getHscode()!=null){
+                                   hscode.setHscode(x.getHscode())     
+                              }
+                              hs.add(hscode);
+                    });
+          }
+          return hs;
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
