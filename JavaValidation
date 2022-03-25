@@ -63,6 +63,12 @@ private List<TXS2BHsCodes> constructHsCodesDetails(TXOdsDocumendetails  document
 }
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 
+anyMatch
+===============
+list.stream.anyMatch(e->e!=null && e.getCoreParty()!=null && client.getPartyRole()!=null  && e.getCoreParty().getValue().equalsIgnoreCase(client.getPartyRole().getValue()))
+
+======================================================================================================================================================================
+
 
 
 
