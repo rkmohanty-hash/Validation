@@ -37,4 +37,26 @@ public class TXSystemChaneelMessage implements Serializable{
 createEvenr.setTimeStamp(LocalDateTime.now());
 
 ---------------------------------------------------------------------------------------
+private TXJournalListCreatedEvent  loadcreatedEvent() throws JsonPareseException ,JsonMappingException,IOException{
+          URL evenUrl=new URL("file:src/test/resources/newstepsaga/TXJournalListCreatedEvent.json")
+          return objectMapper.readValue(evenUrl,TXJournalListCreatedEvent.class);
+}
+---------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
