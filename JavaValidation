@@ -4,4 +4,19 @@
 3.  String notificationId=Objects.nonNull(res.getNotificationId()) ? res.getNotificationId().getValue() :null
 4.  .flatccy(pricingDetails.getFlatCurrencyAmount()!=null ? pricingDetails.getFlatCurrencyAmount().getCurrency(): null)
 5.  StringUtils.isNotBlank()
-7.  
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+if(!CollectionUtils.isEmpty(fevFinanceData.getCurrencyConversion())){
+}
+
+if(CollectionUtils.isNotEmpty(documentEvent.getDocumentDetails().getAccountDetails())){
+}
+
+if(charges!=null && charges.getAdhocCharges()!=null && !charges.getAdhocCharges().isEmpty()){
+          getAdhocCharges is a list
+}
+
+if(MapUtils.isNotEmpty(vcaAccountDetails)){
+    vcaAccountDetails is a map
+}
+
+
