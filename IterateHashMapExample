@@ -31,7 +31,7 @@ public class IterateHashMapExample {
 		}
 		
 		
-		System.out.println("===============================");
+		System.out.println("===========using Lambda Expression====================");
 		coursesMap.forEach((key,value)->{
 			System.out.println(key);
 			System.out.println(value);
@@ -43,6 +43,12 @@ public class IterateHashMapExample {
 			System.out.println(s);
 			
 		}
+		System.out.println("==========Using Stram API=====================");
+
+		coursesMap.entrySet().stream().forEach(entry->{
+			System.out.println(entry.getKey());
+			System.out.println(entry.getValue());
+		});
 
 	}
 
