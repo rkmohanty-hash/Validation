@@ -1,1 +1,25 @@
 
+Public interface TXRiskIndicatorDetailsRepositro extends CrudRepository<TXRiskIndicatorDetailsEntity,String>{
+
+      @Query(value="select e form TXRiskIndicatorDetailsEntity e where e.stepAssociationID = ?1 ")
+      List<TXRiskIndicatorDetailsEntity> findByStepAssociationID(TXUUID stepAssociationID);
+      
+       @Query(value="select e form TXRiskIndicatorDetailsEntity e where e.transactionReference =?1 and e.stepNumber =?2 and  e.stepAssociationID = ?3 ")
+      List<TXRiskIndicatorDetailsEntity> findByStepDetails(TXTransactionReference transactionReference,TXStepNumber  stepNumber,TXUUID stepAssociationID);
+      
+      @Modifying
+      @Query(value="delete form TXRiskIndicatorDetailsEntity e where e.stepAssociationID =?1")
+      void deleteByStepAssociationID(TXUUID stepAssociationID);
+      
+       @Modifying
+       @Query(value="update TXRiskIndicatorDetailsEntity e set e.amlAboveThreshold=?1,e.amlApplicable=?2 where e.id=?3 ")
+       void updateByAmlAndThreshhold(TXBollean amlAboveThreshold,TXAmlApplicable amlApplicable,String id);
+       
+       @Modifying
+       @Query(value="update TXRiskIndicatorDetailsEntity e set e.callbackApplicable=:callbackApplicable where e.id=:recordID")
+       void updateCallbackApplicable(@Param("callbackApplicable") TXCallbackApplicable callbackApplicable,
+                                     @Param("recordID") String recordID );
+      
+      
+      
+}
