@@ -3,7 +3,8 @@
 2.  Objects.nonNull(txs2BGroupedDocuments.getBatchCurrency())
 3.  String notificationId=Objects.nonNull(res.getNotificationId()) ? res.getNotificationId().getValue() :null
 4.  .flatccy(pricingDetails.getFlatCurrencyAmount()!=null ? pricingDetails.getFlatCurrencyAmount().getCurrency(): null)
-5.  StringUtils.isNotBlank()
+5.  StringUtils.isNotBlank(goodsQuantity)
+6. StringUtils.nonEmptyOrNull(goodsQuantity);
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 if(!CollectionUtils.isEmpty(fevFinanceData.getCurrencyConversion())){
 }
@@ -69,8 +70,13 @@ list.stream.anyMatch(e->e!=null && e.getCoreParty()!=null && client.getPartyRole
 
 ======================================================================================================================================================================
 
+=> && referenceDataAMLDetailsList.getReferenceDataAMLDetails.stream().anyMatch(data->data.getRiskIndictor()!=null
+                                                                          && data.getRiskIndictor().getValue()!=null
+                                                                          && data.getRiskIndictor().getValue().equals(riskDataDto.getRiskIndicatorId().getValue())
+                                                                          && data.getRiskThreshholdAmount()!=null
+                                                                          && command.getTransactionAmount().getUnformattedvalue().getValue().compareTo(data.getRiThresholdAmount().getFormattedValue().getValue())<=0)
 
-
+=>List<String> bookingLocation=CollectionUtils.isNotEmpty(query.getTxBookingLocation()) ? query.getTxbookingLocation().stream().map(TXBookLocation::getValue).collect(Collectors.toList()):new ArrayList(); 
 
 
 
