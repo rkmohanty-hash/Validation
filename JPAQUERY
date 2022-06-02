@@ -19,6 +19,9 @@ Public interface TXRiskIndicatorDetailsRepositro extends CrudRepository<TXRiskIn
        @Query(value="update TXRiskIndicatorDetailsEntity e set e.callbackApplicable=:callbackApplicable where e.id=:recordID")
        void updateCallbackApplicable(@Param("callbackApplicable") TXCallbackApplicable callbackApplicable,
                                      @Param("recordID") String recordID );
+                                     
+         @Query(value="select t from TXBookingLocationOnboardingHistory  t where institute =?1 AND txBookingLocation=?2")
+         Optional<TXBookingLocationOnboardingHistory> findByInstituteAndBookingLocation(TxInstitute institute,TXBookingLocation txBookingLocation);
       
       
       
