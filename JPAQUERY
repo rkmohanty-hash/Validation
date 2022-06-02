@@ -22,6 +22,19 @@ Public interface TXRiskIndicatorDetailsRepositro extends CrudRepository<TXRiskIn
                                      
          @Query(value="select t from TXBookingLocationOnboardingHistory  t where institute =?1 AND txBookingLocation=?2")
          Optional<TXBookingLocationOnboardingHistory> findByInstituteAndBookingLocation(TxInstitute institute,TXBookingLocation txBookingLocation);
+         
+         
+         institution=Mandatory
+         txbookinglocation=List and optional
+         stepStatus=List and optional
+         @Query("SELECT t FROM TXBookingLocationHistory t where t.institution=:institution 
+                        AND (COALESCE(:txBookingLocations,null)is null or (t.txBookingLocations IN :txBookingLocations)) 
+                        AND"(:stepStatus,null) is null or (t.referenceDataStepDetails.stepStatus IN :stepStatus))")
+                        
+         Page<TXBookingLocationHistory> findByInstituteAndTxBookingLocationWithStepStatus(
+                              @Param("institution") TXInstitution institution,
+                              @Param("txbookinglocation") List<TXBookingLocation> txbookinglocation,
+                              @Param("stepStatus") List<TXReferenceDataStepStatus> stepStatus,Pageable pegeable )
       
       
       
