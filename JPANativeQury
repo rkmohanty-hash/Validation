@@ -1,0 +1,104 @@
+package com.example.demo.service;
+
+public class Jpa {
+	//null as stepid  =>stepid not there in master table
+	//null as stepAction=>stepAction not there in master table
+	//'RLS' as stepStatus=>stepStatus not there in master table
+	//composite key
+	
+	@Query(nativeQuery=true,value="SELECT customerid as customerID,institution as institution ,stepid as stepid,step_action as stepAction,step_status as stepStatus,finance_type as financeType,tx_booking_location as txBoookingLocation,limit_groupid as limitGroupID from txrh_bcaterms"
+		  +"where step_status IN ('SAV','REJ')" + " AND institution=:institution"
+		  +"AND tx_booking_location IN :txBookingLocation"	
+		  +"AND (:financeType=' ' OR finance_type=:financeType)"
+		  +"AND (:customerID=' ' OR customerid=:customerID)"
+		  +"AND (:limitGroupID=' ' OR limit_groupid=:limitGroupID)"
+		  +"UNION"
+		  +"SELECT customerid as customerID,institution as institution ,null as stepid,null as stepAction,'RLS' as stepStatus,finance_type as financeType,tx_booking_location as txBoookingLocation,limit_groupid as limitGroupID from txrm_bcaterms"
+		  +"where (institution,tx_booking_location,finance_type,customerid,limit_groupid) NOT IN"
+		  
+		  +"(select institution,tx_booking_location,finance_type,customerid,limit_groupid from txrh_bcaterms where step_status IN ('SAV','REJ','PNR')"
+		  +"AND tx_booking_location IN :txBookingLocation"	
+		  +"AND institution=:institution"
+		  +"AND (:financeType=' ' OR finance_type=:financeType)"
+		  +"AND (:customerID=' ' OR customerid=:customerID)"
+		  +"AND (:limitGroupID=' ' OR limit_groupid=:limitGroupID))"
+		  
+         +"AND tx_booking_location IN :txBookingLocation"	
+         +"AND institution=:institution"
+         +"AND (:financeType=' ' OR finance_type=:financeType)"
+         +"AND (:customerID=' ' OR customerid=:customerID)"
+         +"AND (:limitGroupID=' ' OR limit_groupid=:limitGroupID)",
+         
+         countQuery="SELECT count(*) FROM ("
+         +"SELECT customerid as customerID,institution as institution ,finance_type as financeType,tx_booking_location as txBoookingLocation,limit_groupid as limitGroupID "
+         + "from txrh_bcaterms where step_status IN ('SAV','REJ')"
+         + " AND institution=:institution"
+		 +"AND tx_booking_location IN :txBookingLocation"	
+		 +"AND (:financeType=' ' OR finance_type=:financeType)"
+	     +"AND (:customerID=' ' OR customerid=:customerID)"
+	     +"AND (:limitGroupID=' ' OR limit_groupid=:limitGroupID)"
+	     +"UNION"
+	     +"SELECT customerid as customerID,institution as institution ,finance_type as financeType,tx_booking_location as txBoookingLocation,limit_groupid as limitGroupID"
+	     + "from txrm_bcaterms where (institution,tx_booking_location,finance_type,customerid,limit_groupid) NOT IN"
+	     +"(select institution,tx_booking_location,finance_type,customerid,limit_groupid from txrh_bcaterms where step_status IN ('SAV','REJ','PNR')"
+	     
+         +"AND tx_booking_location IN :txBookingLocation"	
+         +"AND institution=:institution"
+         +"AND (:financeType=' ' OR finance_type=:financeType)"
+         +"AND (:customerID=' ' OR customerid=:customerID)"
+         +"AND (:limitGroupID=' ' OR limit_groupid=:limitGroupID))"	
+         
+         +"AND tx_booking_location IN :txBookingLocation"	
+         +"AND institution=:institution"
+         +"AND (:financeType=' ' OR finance_type=:financeType)"
+         +"AND (:customerID=' ' OR customerid=:customerID)"
+         +"AND (:limitGroupID=' ' OR limit_groupid=:limitGroupID)"
+         +") as cnt")
+	Page<ITXBCATermsHistoryAndMasterDTO> historyAndMaster(@Param("institute") String institute,
+			                                               @Param("txBookingLocation") List<String> txBookingLocation,
+			                                               @Param("financeType")String financeType,
+			                                               @Param("limitGroupID")String limitGroupID,
+			                                               @Param("customerID")String customerID,
+			                                               Pageable page)
+
+}
+//========================================================
+
+public interface ITXBCATermsHistoryAndMasterDTO{
+	String getCustomerID();
+	String getStepID();
+	Boolean getIsActive();
+	
+}
+//======================================
+public class TXBCATermsHistoryAndMasterDTO{
+	private String customerId;
+	
+	public TXBCATermsHistoryAndMasterDTO(ITXBCATermsHistoryAndMasterDTO record) {
+		customerId=null!=customerId ? record.getCustomerID():null;
+		
+	}
+	
+	
+}
+//============================
+
+Public TXpage handleAllBCATerms(TXBCATermsMasterQuery query) {
+	if(financeType==null || check with isempty and isBlank) {
+		financeType=" ";
+		
+	}
+	
+	Page<ITXBCATermsHistoryAndMasterDTO> pagelist=call repository class;
+	List<TXBCATermsHistoryAndMasterDTO> bcaList=new Arraylist;
+	if(pagelist!=null && pagelist.hasContent()) {
+		pagelist.foreach(record->bcaList.add(new TXBCATermsHistoryAndMasterDTO(records)))
+		
+		return TXpage.builder().content(pagelist).totalPage(pagelist.gettotalpage()).totalElement(pagelist.gettotalelement()).size(pagelist.getSize()).number(pagelist.getNumber())).build();
+		
+	}
+	
+}
+
+
+
