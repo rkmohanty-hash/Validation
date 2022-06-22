@@ -1,0 +1,13 @@
+
+How to set maven path
+=================================
+
+
+Environment Variable
+-----------------------------
+path  :  c:\programfiles\java\jdk11\bin
+         %MAVEN_HOME%\bin
+         
+system variable
+------------------------------
+MAVEN_HOME : c:\programfiles\apache-maven-3.8.3
